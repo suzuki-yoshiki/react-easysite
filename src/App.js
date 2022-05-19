@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { List } from "./List";
 
 function App() {
+  const [description, setdescription] = useState("クリックしてみよう");
+
+  const changedescription = () => {
+    setdescription("クリック絶対ダメ！！");
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      { description }
+       <List title="取扱言語一覧"/>
+       <button onClick={changedescription}>ボタン</button>
     </div>
   );
 }
