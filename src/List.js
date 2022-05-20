@@ -1,4 +1,15 @@
 import { useEffect } from "react"
+import styled from "styled-components";
+
+
+const ListItem = styled.div`
+  padding: 8px 16px;
+  
+  &:nth-child(n+2) {
+    border-top: 1px solid #D9DBDE;
+  }
+`
+
 
 export const List = ({langs}) => {
   useEffect(() => {
@@ -12,7 +23,7 @@ export const List = ({langs}) => {
     <div>
       {
         langs.map((lang, index) => {
-          return <div key={ index }>{ lang }</div>
+          return <ListItem key={ index }>{ lang }</ListItem>
         })
       }
     </div>
