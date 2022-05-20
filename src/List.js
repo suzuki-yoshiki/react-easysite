@@ -1,4 +1,17 @@
 import React from "react";
+import styled from 'styled-components';
+
+const Container = styled.div`
+  padding: 8px 16px;
+`
+
+const ListItem = styled.div`
+  padding: 8px 16px;
+  
+  &:nth-child(n+2) {
+    border-top: 1px solid #D9DBDE;
+  }
+`
 
 export class List extends React.Component {
   componentWillUnmount() {
@@ -7,13 +20,13 @@ export class List extends React.Component {
   render() {
     const { langs } = this.props;
     return (
-      <div>
+      <Container>
         {
           langs.map((lang, index) => {
-            return <div key={ index }>{ lang }</div>
+            return <ListItem key={ index }>{ lang }</ListItem>
           })
         }
-      </div>
+      </Container>
     )
   }
 }

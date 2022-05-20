@@ -2,6 +2,20 @@ import { List } from "./List";
 import { Form } from "./Form";
 import React from "react";
 import { getLanguages } from "./const/languages";
+import styled from 'styled-components';
+
+const HeaderUl = styled.ul`
+  display: flex;
+  margin: 0;
+  padding: 0;
+`
+const HeaderLi = styled.li`
+  list-style: none;
+  padding: 4px 12px;
+  cursor: pointer;
+  border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none' };
+`
+
 
 class App extends React.Component {
   constructor(props) {
@@ -33,12 +47,11 @@ class App extends React.Component {
     return (
       <div>
         <header>
-          <ul>
-            <li onClick={() => this.setState({ tab: "list" })}>リスト</li>
-            <li onClick={() => this.setState({ tab: "form" })}>フォーム</li>
-          </ul>
+          <HeaderUl>
+            <HeaderLi focused={tab === 'list'} onClick={() => this.setState({ tab: 'list'})}>リスト</HeaderLi>
+            <HeaderLi focused={tab === 'form'} onClick={() => this.setState({ tab: 'form'})}>フォーム</HeaderLi>
+          </HeaderUl>
         </header>
-        <hr/>
         {
           tab === "list" ? 
           <List langs={langs} /> :
