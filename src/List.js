@@ -1,17 +1,8 @@
-const LANGUAGE = [
-  "JavaScript",
-  "C++",
-  "Ruby",
-  "Java",
-  "PHP",
-  "Go",
-];
-
-export const List = () => {
+export const List = ({langs}) => {
   return (
     <div>
       {
-        LANGUAGE.map((lang, index) => {
+        langs.map((lang, index) => {
           return <div key={ index }>{ lang }</div>
         })
       }
