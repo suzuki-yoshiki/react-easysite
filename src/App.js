@@ -4,6 +4,7 @@ import { List } from "./List";
 import { Form } from "./Form";
 import { getLanguages } from "./const/languages";
 import { withLoading } from "./hoc/withLoading";
+// import { Modal } from "./components/modal";
 
 // JSXでのフォーム利用（onChange）
 // 親子間データやり取り
@@ -43,6 +44,7 @@ function App({ data }) {
       {
         tab === "list" ? <List langs={langs} /> : <Form onAddLang={addLang} />
       }
+      {/* <Modal /> */}
     </div>
   );
 }

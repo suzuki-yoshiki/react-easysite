@@ -10,4 +10,5 @@ export const Button = styled.button`
   font-weight: bold;
   color: white;
   cursor: pointer;
+  margin: 8px;
 `
