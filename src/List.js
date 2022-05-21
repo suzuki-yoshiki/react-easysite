@@ -1,5 +1,7 @@
 import { useEffect } from "react"
 import styled from "styled-components";
+import { TabBodyContainer } from "./components/tab-body-container";
+
 
 
 const ListItem = styled.div`
@@ -10,7 +12,6 @@ const ListItem = styled.div`
   }
 `
 
-
 export const List = ({langs}) => {
   useEffect(() => {
     console.log("List.js:useEffect");
@@ -20,6 +21,7 @@ export const List = ({langs}) => {
     }
   })
   return (
+    <TabBodyContainer title="取扱言語リスト">
     <div>
       {
         langs.map((lang, index) => {
@@ -27,5 +29,6 @@ export const List = ({langs}) => {
         })
       }
     </div>
+    </TabBodyContainer>
   )
 }

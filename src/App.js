@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { List } from "./List";
 import { Form } from "./Form";
 import { getLanguages } from "./const/languages";
-
+import { withLoading } from "./hoc/withLoading";
 
 // JSXでのフォーム利用（onChange）
 // 親子間データやり取り
@@ -22,19 +22,9 @@ const HeaderLi = styled.li`
   border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none' };
   `
 
-function App() {
+function App({ data }) {
   const [tab, setTab] = useState("list");
-  const [langs, setLangs] = useState([]);
-
-  useEffect(() => {
-    console.log("App.js:useEffect");
-    fetchLanguages();
-  }, [])
-
-  const fetchLanguages = async () => {
-    const languages = await getLanguages();
-    setLangs(languages)
-  }
+  const [langs, setLangs] = useState(data);
 
   const addLang = (lang) => {
     console.log(lang);
@@ -57,4 +47,4 @@ function App() {
   );
 }
 
-export default App;
+export default withLoading(App, getLanguages);
