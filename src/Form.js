@@ -2,6 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import { Button } from "./components/button";
 import { TabBodyContainer } from "./components/tab-body-container"
+import { FormModal } from "./FormModal";
 
 
 const Label = styled.label`
@@ -27,14 +28,16 @@ export class Form extends React.Component {
     super(props);
     this.state = {
       text: "",
+      showModal: false
     }
   }
   submitForm(e) {
     e.preventDefault();
-    this.props.onAddLang(this.state.text);
+    this.setState({ showModal: true });
   }
   render() {
-    const { text } = this.state;
+    const { text, showModal } = this.state;
+    const { onAddLang } = this.props;
     return (
       <TabBodyContainer title="言語の追加">
         <form onSubmit={(e) => this.submitForm(e)}>
@@ -48,6 +51,13 @@ export class Form extends React.Component {
             </ButtonContainer>
           </div>
         </form>
+        {
+          showModal &&
+          <FormModal 
+            confirm={() => onAddLang(text)}
+            cancel={() => this.setState({ showModal: false })}
+          />
+        }
       </TabBodyContainer>
     )
   }
