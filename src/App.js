@@ -1,24 +1,20 @@
 import { List } from "./List";
 import { Form } from "./Form";
 import React from "react";
-import { getLanguages } from "./const/languages";
 import styled from 'styled-components';
-import { withLoading } from "./hoc/withLoading";
+// import { getLanguages } from "./const/languages";
+// import { withLoading } from "./hoc/withLoading";
+import { Header } from "./Header";
+import { ThemeContext } from "./contexts/ThemeContext";
 
-const HeaderUl = styled.ul`
-  display: flex;
-  margin: 0;
-  padding: 0;
+const Container = styled.div`
+  height: 100%;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.backgroundColor};
 `
-const HeaderLi = styled.li`
-  list-style: none;
-  padding: 4px 12px;
-  cursor: pointer;
-  border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none' };
-`
-
 
 class App extends React.Component {
+  static contextType = ThemeContext;
   constructor(props) {
     super(props);
     this.state = { 
@@ -26,15 +22,6 @@ class App extends React.Component {
       langs: props.data,
     }
   }
-
-  // componentDidMount() {
-  //   console.log("App.js:componentDidMount");
-  //   this.fetchLanguages();
-  // }
-  // async fetchLanguages() {
-  //   const langs = await getLanguages();
-  //   this.setState({ langs });
-  // }
 
   addLang(lang) {
     this.setState({
@@ -45,22 +32,18 @@ class App extends React.Component {
 
   render() {
     const { tab, langs } = this.state;
+    const [theme] = this.context;
     return (
-      <div>
-        <header>
-          <HeaderUl>
-            <HeaderLi focused={tab === 'list'} onClick={() => this.setState({ tab: 'list'})}>リスト</HeaderLi>
-            <HeaderLi focused={tab === 'form'} onClick={() => this.setState({ tab: 'form'})}>フォーム</HeaderLi>
-          </HeaderUl>
-        </header>
-        {
-          tab === "list" ? 
-          <List langs={langs} /> :
-          <Form onAddLang={(lang) => this.addLang(lang)} />
-        }
-      </div>
+      <Container theme={theme}>
+        <Header tab={tab} setTab={(t) => this.setState({ tab: t })} />
+          {
+            tab === "list" ? 
+            <List langs={langs} /> :
+            <Form onAddLang={(lang) => this.addLang(lang)} />
+          }
+      </Container>
     )
   }
 }
 
-export default withLoading(App, getLanguages);
+export default App;

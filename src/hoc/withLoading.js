@@ -1,14 +1,19 @@
 import React from "react";
 import styled from 'styled-components';
+import { ThemeContext } from "../contexts/ThemeContext";
 
 
 const LoadDiv = styled.div`
-padding: 36px;
+  height: 100%;
+  padding: 36px;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.backgroundColor};
 `
 
 
 export const withLoading = (WrappedComponent, fetchData) => {
   class HOC extends React.Component {
+    static contextType = ThemeContext;
     constructor(props) {
       super(props);
       this.state = { data: null}
@@ -22,9 +27,10 @@ export const withLoading = (WrappedComponent, fetchData) => {
     }
     render() {
       const { data } = this.state;
+      const [theme] = this.context;
 
       const Loading = (
-        <LoadDiv>ロード中！！</LoadDiv>
+        <LoadDiv theme={theme}>ロード中！！</LoadDiv>
       )
       return data ? <WrappedComponent data={data} /> : Loading;
     }
