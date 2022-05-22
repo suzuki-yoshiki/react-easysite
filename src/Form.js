@@ -3,6 +3,7 @@ import { Button } from "./components/button";
 import styled from "styled-components";
 import { TabBodyContainer } from "./components/tab-body-container";
 import { FormModal } from "./FormModal";
+import { Hint } from "./Hint";
 
 
 const Label = styled.label`
@@ -39,6 +40,7 @@ export const Form = ( { onAddLang } ) => {
         <div>
           <Label>言語</Label>
           <Input type="text" value={text} onChange={(e) => setText(e.target.value)} autoFocus/>
+          <Hint />
         </div>
         <div>
           <ButtonContainer>
