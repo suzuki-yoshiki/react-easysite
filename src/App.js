@@ -1,31 +1,28 @@
-import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { List } from "./List";
 import { Form } from "./Form";
-import { getLanguages } from "./const/languages";
-import { withLoading } from "./hoc/withLoading";
-// import { Modal } from "./components/modal";
+// import { getLanguages } from "./const/languages";
+// import { withLoading } from "./hoc/withLoading";
+import styled from "styled-components";
+import { Header } from "./Header";
+import { ThemeContext } from "./contexts/ThemeContext";
 
 // JSXでのフォーム利用（onChange）
 // 親子間データやり取り
 // 子→親コンポーネントにデータを渡す
 // 親→子コンポーネントにデータを渡す
 
-const HeaderUl = styled.ul`
-  display: flex;
-  margin: 0;
-  padding: 0;
+const Container = styled.div`
+  height: 100%;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.backgroundColor};
 `
-const HeaderLi = styled.li`
-  list-style: none;
-  padding: 4px 12px;
-  cursor: pointer;
-  border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none' };
-  `
 
 function App({ data }) {
   const [tab, setTab] = useState("list");
   const [langs, setLangs] = useState(data);
+
+  const [theme] = useContext(ThemeContext);
 
   const addLang = (lang) => {
     console.log(lang);
@@ -34,19 +31,13 @@ function App({ data }) {
   }
   
   return (
-    <div>
-      <header>
-        <HeaderUl>
-          <HeaderLi focused={tab === 'list'} onClick={() => setTab('list')}>リスト</HeaderLi>
-          <HeaderLi focused={tab === 'form'} onClick={() => setTab('form')}>フォーム</HeaderLi>
-        </HeaderUl>
-      </header>
+    <Container theme={theme}>
+      <Header tab={tab} setTab={setTab} />
       {
         tab === "list" ? <List langs={langs} /> : <Form onAddLang={addLang} />
       }
-      {/* <Modal /> */}
-    </div>
+    </Container>
   );
 }
 
-export default withLoading(App, getLanguages);
+export default App;
